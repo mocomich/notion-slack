@@ -1,0 +1,20 @@
+{
+	"name": "notion",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"deploy": "wrangler deploy",
+		"start": "wrangler dev"
+	},
+	"devDependencies": {
+		"@cloudflare/workers-types": "^4.20230419.0",
+		"date-fns": "^2.30.0",
+		"typescript": "^5.0.4",
+		"wrangler": "^3.0.0",
+		"yarn": "^1.22.19"
+	},
+	"dependencies": {
+		"@notionhq/client": "^2.2.13",
+		"hono": "^3.5.8"
+	}
+}

@@ -1,0 +1,10 @@
+name = "notion"
+main = "src/worker.ts"
+compatibility_date = "2023-05-15"
+node_compat = true
+
+# Cron Triggers
+# Docs: https://developers.cloudflare.com/workers/platform/triggers/cron-triggers/
+# Configuration: https://developers.cloudflare.com/workers/wrangler/configuration/#triggers
+[triggers]
+crons = ["0 9,18 * * *"]
