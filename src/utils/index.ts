@@ -1,4 +1,4 @@
-import { differenceInDays, parse } from 'date-fns';
+import { differenceInDays } from 'date-fns';
 
 export function assertType<T extends string>(type: T, obj: { type: string }): asserts obj is { type: T } {
 	if (obj.type !== type) {
@@ -6,7 +6,6 @@ export function assertType<T extends string>(type: T, obj: { type: string }): as
 	}
 }
 
-export function calculateDateDifference(date: string): number {
-	const today = new Date();
-	return Math.abs(differenceInDays(new Date(date), today));
+export function calculateDateDifference(today: Date, targetDate: Date): number {
+	return Math.abs(differenceInDays(targetDate, today));
 }
