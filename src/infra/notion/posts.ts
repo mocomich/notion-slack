@@ -1,6 +1,6 @@
 import { Client, iteratePaginatedAPI } from '@notionhq/client';
 import { Post } from '../../models/post';
-import { assertType, calculateDateDifference } from '../../utils';
+import { assertType, calculateDateDifference, getMessage } from '../../utils';
 
 export async function getPosts(notion: Client, notionDatabaseId: string): Promise<Post[]> {
 	const posts: Post[] = [];
@@ -28,12 +28,7 @@ export async function getPosts(notion: Client, notionDatabaseId: string): Promis
 		const title = properties.title.title[0].plain_text ?? '';
 		// one week
 		const remainingDay = 7 - calculateDateDifference(new Date(), new Date(properties.created_time.created_time));
-		const note =
-			remainingDay === 0
-				? `🔰 残り7日です`
-				: remainingDay < 0
-				? `⚠️ 残り${Math.abs(remainingDay)}日です`
-				: '💩 期限が過ぎています。早く読みなさい。';
+		const note = getMessage(remainingDay);
 
 		posts.push({
 			notionBlockId: block.id,
