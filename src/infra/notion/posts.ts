@@ -26,7 +26,8 @@ export async function getPosts(notion: Client, notionDatabaseId: string): Promis
 
 		const url = properties.url.url ?? '';
 		const title = properties.title.title[0].plain_text ?? '';
-		const remainingDay = calculateDateDifference(properties.created_time.created_time);
+		// one week
+		const remainingDay = 7 - calculateDateDifference(new Date(), new Date(properties.created_time.created_time));
 		const note =
 			remainingDay === 0
 				? `🔰 残り7日です`
