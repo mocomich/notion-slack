@@ -31,6 +31,10 @@ export async function postAllMessage(posts: Post[], token: string) {
 	for (let index = 0; index < posts.length; index++) {
 		const post = posts[index];
 		const component = generateComponent({ ...post });
-		postMessage(token, '#notion', component);
+		try {
+			await postMessage(token, '#notion', component);
+		} catch (error) {
+			console.error(`投稿メッセージ ${index + 1} の送信エラー:`, error);
+		}
 	}
 }
