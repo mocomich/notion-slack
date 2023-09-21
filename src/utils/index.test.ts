@@ -8,7 +8,8 @@ describe('assertType', () => {
 	});
 	test('Error', () => {
 		const obj = { type: 'someOtherType' };
-		expect(() => assertType('someType', obj)).toThrowError('unexpected type: someOtherType');
+		/** https://github.com/oven-sh/bun/issues/1825#issuecomment-1625008733 */
+		expect(() => assertType('someType', obj)).toThrow('unexpected type: someOtherType');
 	});
 });
 
