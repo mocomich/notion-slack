@@ -1,5 +1,5 @@
 import { test, expect, describe } from 'vitest';
-import { assertType, calculateDateDifference, getMessage } from '.';
+import { assertType, calculateDateDifference, getMessage, isExist, assertIsExist, isObject, assertIsObject } from '.';
 
 describe('assertType', () => {
 	test('Success', () => {
@@ -32,5 +32,71 @@ describe('getMessage', () => {
 	test('Overdue', () => {
 		const message = getMessage(-3);
 		expect(message).toBe('💩 期限が過ぎています。早く読みなさい');
+	});
+});
+
+describe('isExist', () => {
+	test('Expect true', () => {
+		expect(isExist({ a: 'a' })).toBeTruthy();
+	});
+	test('Expect false', () => {
+		expect(isExist(null)).toBeFalsy();
+	});
+
+	test('Expect false', () => {
+		expect(isExist(undefined)).toBeFalsy();
+	});
+});
+
+describe('assertIsExist', () => {
+	test('Success: is existing', () => {
+		const v = { a: 'a' };
+		expect(() => assertIsExist(v, 'v')).not.toThrow();
+	});
+	test('Error: is not existing', () => {
+		const v = null;
+		expect(() => assertIsExist(v, 'v')).toThrow('v should be specified');
+	});
+
+	test('Error: is not existing', () => {
+		const v = undefined;
+		expect(() => assertIsExist(v, 'v')).toThrow('v should be specified');
+	});
+});
+
+describe('isObject', () => {
+	test('Expect true', () => {
+		expect(isObject({ a: 'a' })).toBeTruthy();
+	});
+
+	test('Expect false', () => {
+		expect(isObject('aa')).toBeFalsy();
+	});
+
+	test('Expect false', () => {
+		expect(isObject(null)).toBeFalsy();
+	});
+
+	test('Expect false', () => {
+		expect(isObject(undefined)).toBeFalsy();
+	});
+});
+
+describe('assertIsObject', () => {
+	test('Success: v is object', () => {
+		const v = { a: 'a' };
+		expect(() => assertIsObject(v, 'v')).not.toThrow();
+	});
+	test('Error: v is not object', () => {
+		const v = '';
+		expect(() => assertIsObject(v, 'v')).toThrow('v should be object');
+	});
+	test('Error: v is not object', () => {
+		const v = null;
+		expect(() => assertIsObject(v, 'v')).toThrow('v should be object');
+	});
+	test('Error: v is not object', () => {
+		const v = undefined;
+		expect(() => assertIsObject(v, 'v')).toThrow('v should be object');
 	});
 });
